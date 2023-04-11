@@ -1,0 +1,373 @@
+export type Category = 'frontend' | 'backend' | 'testing' | 'devops' | 'iot';
+
+export interface Technology {
+  name: string;
+  familiarity: number;
+  preference: number;
+  category: Category[];
+}
+
+const technologies: Technology[] = [
+  {
+    name: 'JavaScript',
+    familiarity: 5,
+    preference: 5,
+    category: ['frontend', 'backend', 'iot'],
+  },
+  {
+    name: 'Typescript',
+    familiarity: 5,
+    preference: 5,
+    category: ['frontend', 'backend', 'iot'],
+  },
+  {
+    name: 'NodeJS',
+    familiarity: 5,
+    preference: 5,
+    category: ['backend', 'iot'],
+  },
+  {
+    name: 'PHP',
+    familiarity: 5,
+    preference: 4,
+    category: ['backend'],
+  },
+  {
+    name: 'C',
+    familiarity: 3,
+    preference: 4,
+    category: ['backend', 'devops', 'iot'],
+  },
+  {
+    name: 'C++',
+    familiarity: 3,
+    preference: 3,
+    category: ['backend', 'devops', 'iot'],
+  },
+  {
+    name: 'Python',
+    familiarity: 4,
+    preference: 4,
+    category: ['backend', 'devops', 'iot'],
+  },
+  {
+    name: 'Bash',
+    familiarity: 4,
+    preference: 5,
+    category: ['devops'],
+  },
+  {
+    name: 'Arduino',
+    familiarity: 5,
+    preference: 5,
+    category: ['backend', 'iot'],
+  },
+  {
+    name: 'React',
+    familiarity: 5,
+    preference: 5,
+    category: ['frontend'],
+  },
+  {
+    name: 'Angular',
+    familiarity: 4,
+    preference: 3,
+    category: ['frontend'],
+  },
+  {
+    name: 'Vue',
+    familiarity: 4,
+    preference: 4,
+    category: ['frontend'],
+  },
+  {
+    name: 'Symfony',
+    familiarity: 5,
+    preference: 4,
+    category: ['frontend', 'backend'],
+  },
+  {
+    name: 'Tailwindcss',
+    familiarity: 5,
+    preference: 5,
+    category: ['frontend'],
+  },
+  {
+    name: 'Ant Design',
+    familiarity: 5,
+    preference: 4,
+    category: ['frontend'],
+  },
+  {
+    name: 'MaterialUI',
+    familiarity: 5,
+    preference: 3,
+    category: ['frontend'],
+  },
+  {
+    name: 'Bootstrap',
+    familiarity: 5,
+    preference: 3,
+    category: ['frontend'],
+  },
+  {
+    name: 'Express',
+    familiarity: 5,
+    preference: 5,
+    category: ['backend'],
+  },
+  {
+    name: 'Fastify',
+    familiarity: 5,
+    preference: 5,
+    category: ['backend'],
+  },
+  {
+    name: 'NextJS',
+    familiarity: 5,
+    preference: 5,
+    category: ['frontend'],
+  },
+  {
+    name: 'NestJS',
+    familiarity: 5,
+    preference: 5,
+    category: ['backend'],
+  },
+  {
+    name: 'FastAPI',
+    familiarity: 3,
+    preference: 4,
+    category: ['backend'],
+  },
+  {
+    name: 'Vite',
+    familiarity: 5,
+    preference: 5,
+    category: ['frontend'],
+  },
+  {
+    name: 'Mysql',
+    familiarity: 5,
+    preference: 5,
+    category: ['backend'],
+  },
+  {
+    name: 'Postgresql',
+    familiarity: 5,
+    preference: 5,
+    category: ['backend'],
+  },
+  {
+    name: 'Mongodb',
+    familiarity: 5,
+    preference: 5,
+    category: ['backend'],
+  },
+  {
+    name: 'InfluxDB',
+    familiarity: 4,
+    preference: 5,
+    category: ['backend'],
+  },
+  {
+    name: 'GraphQL',
+    familiarity: 4,
+    preference: 4,
+    category: ['backend'],
+  },
+  {
+    name: 'Apache Cassandra',
+    familiarity: 3,
+    preference: 4,
+    category: ['backend'],
+  },
+  {
+    name: 'Docker',
+    familiarity: 4,
+    preference: 5,
+    category: ['devops'],
+  },
+  {
+    name: 'Kubernetes',
+    familiarity: 3,
+    preference: 5,
+    category: ['devops'],
+  },
+  {
+    name: 'Web RTC',
+    familiarity: 3,
+    preference: 5,
+    category: ['frontend'],
+  },
+  {
+    name: 'NGINX',
+    familiarity: 5,
+    preference: 5,
+    category: ['devops'],
+  },
+  {
+    name: 'Gitlab pipelines',
+    familiarity: 5,
+    preference: 5,
+    category: ['devops'],
+  },
+  {
+    name: 'GitHub pipelines',
+    familiarity: 5,
+    preference: 5,
+    category: ['devops'],
+  },
+  {
+    name: 'BitBucket pipelines',
+    familiarity: 5,
+    preference: 5,
+    category: ['devops'],
+  },
+  {
+    name: 'Azure pipelines',
+    familiarity: 5,
+    preference: 5,
+    category: ['devops'],
+  },
+  {
+    name: 'MQTT',
+    familiarity: 5,
+    preference: 5,
+    category: ['backend'],
+  },
+  {
+    name: 'RabbitMQ',
+    familiarity: 5,
+    preference: 5,
+    category: ['backend'],
+  },
+  {
+    name: 'Redis',
+    familiarity: 5,
+    preference: 5,
+    category: ['backend'],
+  },
+  {
+    name: 'Grafana',
+    familiarity: 5,
+    preference: 5,
+    category: ['backend', 'devops'],
+  },
+  {
+    name: 'Git',
+    familiarity: 5,
+    preference: 5,
+    category: ['frontend', 'backend', 'devops', 'iot'],
+  },
+  {
+    name: 'Elastic',
+    familiarity: 5,
+    preference: 5,
+    category: ['backend'],
+  },
+  {
+    name: 'Elasticsearch',
+    familiarity: 5,
+    preference: 5,
+    category: ['backend'],
+  },
+  {
+    name: 'Django',
+    familiarity: 5,
+    preference: 5,
+    category: ['backend'],
+  },
+  {
+    name: 'Flask',
+    familiarity: 5,
+    preference: 5,
+    category: ['backend'],
+  },
+  {
+    name: 'Linux',
+    familiarity: 5,
+    preference: 5,
+    category: ['devops', 'iot'],
+  },
+  {
+    name: 'Jest',
+    familiarity: 5,
+    preference: 5,
+    category: ['frontend', 'backend', 'testing'],
+  },
+  {
+    name: 'Chai',
+    familiarity: 5,
+    preference: 4,
+    category: ['frontend', 'backend', 'testing'],
+  },
+  {
+    name: 'PHPUnit',
+    familiarity: 5,
+    preference: 5,
+    category: ['backend', 'testing'],
+  },
+  {
+    name: 'Cucumber',
+    familiarity: 5,
+    preference: 5,
+    category: ['backend', 'testing'],
+  },
+  {
+    name: 'Asterisk',
+    familiarity: 5,
+    preference: 5,
+    category: ['devops'],
+  },
+  {
+    name: 'Selenium',
+    familiarity: 4,
+    preference: 4,
+    category: ['testing'],
+  },
+  {
+    name: 'JMeter',
+    familiarity: 5,
+    preference: 5,
+    category: ['testing'],
+  },
+  {
+    name: 'Rancher',
+    familiarity: 4,
+    preference: 4,
+    category: ['devops'],
+  },
+  {
+    name: 'Portainer',
+    familiarity: 4,
+    preference: 4,
+    category: ['devops'],
+  },
+  {
+    name: 'Node-RED',
+    familiarity: 5,
+    preference: 5,
+    category: ['iot'],
+  },
+  {
+    name: 'AWS',
+    familiarity: 4,
+    preference: 5,
+    category: ['devops'],
+  },
+  {
+    name: 'Azure',
+    familiarity: 3,
+    preference: 3,
+    category: ['devops'],
+  },
+  {
+    name: 'GCP',
+    familiarity: 4,
+    preference: 4,
+    category: ['devops'],
+  },
+];
+
+export default technologies;
