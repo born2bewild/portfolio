@@ -40,14 +40,16 @@ export const ContactForm = () => {
             name="name"
             placeholder="John Doe"
             label="Full name"
+            required
           />
           <Input
             type="email"
             name="email"
             placeholder="john@example.com"
             label="Email address"
+            required
           />
-          <Textarea name="message" rows={4} label="Message" />
+          <Textarea name="message" rows={4} label="Message" required />
           <div tw="block">
             <Button type="submit">Submit</Button>
           </div>
