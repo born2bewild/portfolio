@@ -28,7 +28,7 @@ const Header = ({ activeSection }: Props) => {
       <div tw="justify-between px-4 mx-auto md:flex md:items-center md:px-8 lg:max-w-7xl">
         <div>
           <div tw="flex items-center justify-between py-3 md:block md:py-5">
-            <Link href="/">
+            <Link href="/" aria-label="Go to home page" title="Home Page">
               <div tw=" w-9 h-9 overflow-hidden text-3xl font-bold text-zinc-500">
                 <LogoAnimated width="2.25rem" height="2.25rem" />
               </div>

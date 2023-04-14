@@ -40,7 +40,7 @@ const HireMeHeading = styled.h1`
   font-size: 60px;
   font-weight: 600;
   padding-bottom: 2rem;
-  color: #e0d6e9;
+  color: rgb(37, 99, 235);
   text-shadow: 2px 2px 0px #957dad, 4px 4px 0px #ee4b2b, 6px 6px 0px #00c2cb,
     8px 8px 0px #ff7f50, 10px 10px 0px #553c9a;
 `;
@@ -65,8 +65,8 @@ const App = () => {
         <HeroSection name="home" setVisible={handleChangeVisibleSection}>
           <div tw="h-36 w-36 self-center overflow-hidden container">
             <Image
-              width={250}
-              height={400}
+              width={140}
+              height={140}
               tw="border-8 border-white rounded-full"
               alt="Picture of the author"
               src="/images/photo.jpeg"
@@ -96,16 +96,32 @@ const App = () => {
             </p>
 
             <div className="flex py-5 ">
-              <SocialLink tw="text-2xl" href="https://github.com/born2bewild">
+              <SocialLink
+                title="GitHub"
+                aria-label="Go to GitHub profile"
+                href="https://github.com/born2bewild"
+              >
                 <SiGithub size={40} />
               </SocialLink>
-              <SocialLink href="https://gitlab.com/lukasz.wawrzyniak">
+              <SocialLink
+                title="GitLab"
+                aria-label="Go to GitLab profile"
+                href="https://gitlab.com/lukasz.wawrzyniak"
+              >
                 <SiGitlab size={40} />
               </SocialLink>
-              <SocialLink href="https://www.linkedin.com/in/lukaszwawrzyniak/">
+              <SocialLink
+                title="LinkedIn"
+                aria-label="Go to LinkedIn profile"
+                href="https://www.linkedin.com/in/lukaszwawrzyniak/"
+              >
                 <SiLinkedin size={40} />
               </SocialLink>
-              <SocialLink href="https://t.me/luke_wawrzyniak/">
+              <SocialLink
+                title="Telegram"
+                aria-label="Go to Telegram Chat"
+                href="https://t.me/luke_wawrzyniak/"
+              >
                 <SiTelegram size={40} />
               </SocialLink>
             </div>
