@@ -14,8 +14,8 @@ export const Project = ({ project }: Props) => {
       <div tw="h-full text-center">
         {project.logo ? (
           <Image
-            width={300}
-            height={300}
+            width={128}
+            height={128}
             src={project.logo}
             alt={project.name}
             tw="w-20 h-20 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100"
