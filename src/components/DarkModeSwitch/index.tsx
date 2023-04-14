@@ -90,6 +90,8 @@ export const DarkModeSwitch: React.FC<Props> = ({
 
   return (
     <button
+      title="Dark mode switch"
+      aria-label="Change dark/light mode"
       onClick={onChange}
       style={{
         cursor: 'pointer',
