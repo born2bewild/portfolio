@@ -5,6 +5,8 @@ import Select from '@/components/Select';
 import technologies, { Category } from '@/data/technologies';
 import axios from 'axios';
 import { FormEvent, useMemo, useRef, useState } from 'react';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import { toast } from 'react-toastify';
 import 'twin.macro';
 import Preset from './Preset';
 
@@ -25,6 +27,8 @@ const FILE_EXTENSION = 'pdf';
 const defaultFileName = `${DEFAULT_FILE_NAME}.${FILE_EXTENSION}`;
 
 export const ResumeGenerator = () => {
+  const [isSending, setIsSending] = useState(false);
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const [addGDPRClause, setAddGDPRClause] = useState(true);
 
   const [preset, setPreset] = useState<Category | 'all'>('all');
@@ -44,11 +48,21 @@ export const ResumeGenerator = () => {
     setAddGDPRClause(prev => !prev);
   };
 
-  const handleSubmit = (event: FormEvent<ResumeFormElement>) => {
+  const handleSubmit = async (event: FormEvent<ResumeFormElement>) => {
     event.preventDefault();
     const { company, add_gdpr_statement, email, skills } =
       event.currentTarget.elements;
+    if (!executeRecaptcha) {
+      return;
+    }
 
+    setIsSending(true);
+    const token = await executeRecaptcha('contactFormSubmit');
+    if (!token) {
+      toast.warning('Are you a robot?! reCaptcha thinks that you are!');
+      setIsSending(false);
+      return;
+    }
     axios({
       method: 'post',
       url: '/api/generate-resume',
@@ -57,15 +71,27 @@ export const ResumeGenerator = () => {
         add_gdpr_statement: add_gdpr_statement.value === 'on' ? true : false,
         company: company.value,
         email: email.value,
+        token,
       },
       responseType: 'blob',
-    }).then(response => {
-      const blobUrl = URL.createObjectURL(response.data);
-      blobAnchorRef.current?.setAttribute('href', blobUrl);
-      blobAnchorRef.current?.click();
-      blobAnchorRef.current?.setAttribute('href', '');
-      URL.revokeObjectURL(blobUrl);
-    });
+    })
+      .then(response => {
+        toast.info('Thank you for reaching me out! Download should start now!');
+        const blobUrl = URL.createObjectURL(response.data);
+        blobAnchorRef.current?.setAttribute('href', blobUrl);
+        blobAnchorRef.current?.click();
+        blobAnchorRef.current?.setAttribute('href', '');
+        URL.revokeObjectURL(blobUrl);
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(
+          'Message is not sent! Try to reach me out via another medium!'
+        );
+      })
+      .finally(() => {
+        setIsSending(false);
+      });
   };
 
   return (
@@ -114,7 +140,9 @@ export const ResumeGenerator = () => {
             label="Company name"
           />
           <div tw="block">
-            <Button type="submit">Submit</Button>
+            <Button loading={isSending} type="submit">
+              Generate resume
+            </Button>
           </div>
         </div>
       </div>

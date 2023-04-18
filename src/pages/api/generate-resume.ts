@@ -1,14 +1,24 @@
 import technologiesData from '@/data/technologies';
+import { validateReCaptchaToken } from '@/services/recaptcha';
 import ResumeGenerator from '@/services/resume-generator';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { z } from 'zod';
+import { ZodError, z } from 'zod';
 
-const schema = z.object({
-  skills: z.array(z.string()),
-  email: z.string(),
-  company: z.string().optional(),
-  add_gdpr_statement: z.boolean().optional(),
-});
+const schema = z
+  .object({
+    skills: z.array(z.string()),
+    email: z.string(),
+    token: z.string(),
+    company: z.string().optional(),
+    add_gdpr_statement: z.boolean().optional(),
+  })
+  .strict();
+
+const getDefaultSkills = (): string[] => {
+  return technologiesData
+    .filter(technology => technology.preference === 5)
+    .map(skill => skill.name);
+};
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req;
@@ -19,37 +29,36 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       error: { message: `Method ${method} Not Allowed` },
     });
   }
+  try {
+    const data = schema.parse(req.body);
+    const isTokenValid = validateReCaptchaToken(data.token);
+    if (!isTokenValid) {
+      return res.status(400).json({ message: 'Ding dong! Are you a robot?' });
+    }
+    const resume = new ResumeGenerator();
 
-  const validation = schema.safeParse(req.body);
-  if (!validation.success) {
-    const { errors } = validation.error;
+    const { skills, email, add_gdpr_statement, company } = data;
 
-    return res.status(400).json({
-      error: { message: 'Invalid request', errors },
+    const doc = resume.generate({
+      skills: skills || getDefaultSkills(),
+      addGDPRRegulations: add_gdpr_statement,
+      company: company,
+      generatedBy: email,
     });
+
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader(
+      'Content-Disposition',
+      'attachment; filename=luke_wawrzyniak-resume.pdf'
+    );
+    res.send(doc);
+    doc.end();
+  } catch (error) {
+    if (error instanceof ZodError) {
+      return res
+        .status(400)
+        .json({ message: 'Invalid request', error: error.errors });
+    }
+    return res.status(500).end();
   }
-
-  const resume = new ResumeGenerator();
-  const getDefaultSkills = (): string[] => {
-    return technologiesData
-      .filter(technology => technology.preference === 5)
-      .map(skill => skill.name);
-  };
-
-  const { skills, email, add_gdpr_statement, company } = validation.data;
-
-  const doc = resume.generate({
-    skills: skills || getDefaultSkills(),
-    addGDPRRegulations: add_gdpr_statement,
-    company: company,
-    generatedBy: email,
-  });
-
-  res.setHeader('Content-Type', 'application/pdf');
-  res.setHeader(
-    'Content-Disposition',
-    'attachment; filename=luke_wawrzyniak-resume.pdf'
-  );
-  res.send(doc);
-  doc.end();
 }
