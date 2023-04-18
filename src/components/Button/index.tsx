@@ -23,6 +23,7 @@ interface Props
     'ref'
   > {
   loading?: boolean;
+  isActive?: boolean;
 }
 
 const Button = ({ loading, children, ...restProps }: Props) => (
